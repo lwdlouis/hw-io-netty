@@ -10,22 +10,32 @@ import java.net.Socket;
 public class BioServer {
 
 
+    public static void main(String[] args) throws IOException {
+        startUp();
+    }
 
+    public static void startUp() throws IOException {
 
-    public void startUp() throws IOException {
+        System.out.println("start server socket ... ");
 
         ServerSocket server = new ServerSocket(18080);
 
-        Socket socket = server.accept();
+        while (true) {
+            Socket socket = server.accept();
 
-        InputStream inputStream = socket.getInputStream();
+            InputStream inputStream = socket.getInputStream();
 
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(inputStream, "utf-8"));
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(inputStream, "utf-8"));
 
+            String str = null;
+            while((str = reader.readLine()) != null) {
+                System.out.println(str);
+            }
+        }
 
-
-
+//        inputStream.close();
+//        reader.close();
     }
 
 }
